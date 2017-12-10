@@ -1,9 +1,84 @@
 <resources>
     <string name="app_name">InventoryApp</string>
+
     <!-- Title for the empty view [CHAR LIMIT=30] -->
     <string name="empty_view_title">The Inventory is empty</string>
+
     <!-- Text for the empty view [CHAR LIMIT=50] -->
     <string name="empty_view_text">To add an item please use the button below.</string>
+
     <!-- Text for the sale button [CHAR LIMIT=10] -->
     <string name="sale_button">Sale</string>
+
+    <!-- Label for overview category of attributes in the detail [CHAR LIMIT=30] -->
+    <string name="category_overview">Overview</string>
+
+    <!-- Title for the activity to add a new phone [CHAR LIMIT=20] -->
+    <string name="detail_activity_title_new_phone">Add a Phone</string>
+
+    <!-- Title for the activity to edit an existing phone [CHAR LIMIT=20] -->
+    <string name="detail_activity_title_edit_phone">Display/Edit Phone</string>
+
+    <!-- Text hint for name field in the detail [CHAR LIMIT=30] -->
+    <string name="hint_phone_name">Name</string>
+
+    <!-- Text hint for manufacturer field in the detail [CHAR LIMIT=30] -->
+    <string name="hint_phone_manufacturer">Manufacturer</string>
+
+    <!-- Text hint for price field in the detail [CHAR LIMIT=30] -->
+    <string name="hint_phone_price">Price</string>
+
+    <!-- Text hint for memory field in the detail [CHAR LIMIT=30] -->
+    <string name="hint_phone_memory">Memory</string>
+
+    <!-- Label for quantity information in the detail [CHAR LIMIT=30] -->
+    <string name="quantity_label">Quantity</string>
+
+    <!-- Label for quantity information in the detail [CHAR LIMIT=30] -->
+    <string name="quantity_value">0</string>
+
+    <!-- Toast message in detail when new phone has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="detail_insert_phone_successful">Phone saved</string>
+
+    <!-- Toast message in detail when new phone has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="detail_insert_phone_failed">Error with saving phone</string>
+
+    <!-- Toast message in detail when current phone was successfully updated [CHAR LIMIT=NONE] -->
+    <string name="detail_update_phone_successful">Phone updated</string>
+
+    <!-- Toast message in editor when current phone has failed to be updated [CHAR LIMIT=NONE] -->
+    <string name="detail_update_phone_failed">Error with updating phone</string>
+
+    <!-- Label for editor menu option to save phone and leave editor [CHAR LIMIT=20] -->
+    <string name="action_save">Save</string>
+
+    <!-- Label for editor overflow menu option that deletes the current phone [CHAR LIMIT=20] -->
+    <string name="action_delete">Delete</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current phone [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current phone [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this pet?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current phone [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current phone [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+    <!-- Toast message in detail when current pet was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="detail_delete_phone_successful">Phone deleted</string>
+
+    <!-- Toast message in detail when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="detail_delete_phone_failed">Error with deleting phone</string>
+
 </resources>
+
+

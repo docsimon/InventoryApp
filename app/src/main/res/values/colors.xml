@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+    <!-- Primary color for the detail activity -->
+    <color name="detailColorPrimary">#2D3640</color>
+    <!-- Primary dark color for detail activity -->
+    <color name="detailColorPrimaryDark">#394450</color>
 </resources>
