@@ -20,6 +20,8 @@ package com.example.android.inventoryapp;
  * limitations under the License.
  */
 
+import android.content.ContentValues;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CursorAdapter;
@@ -80,6 +82,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.price);
@@ -93,7 +96,10 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // Read the phone attributes from the Cursor for the current phone
         String phoneName = cursor.getString(nameColumnIndex);
         String phonePrice = cursor.getString(priceColumnIndex);
-        String phoneQuantity = cursor.getString(quantityColumnIndex);
+        // Declare these variable as final in order to use them inside the inner class
+        final String phoneQuantity = cursor.getString(quantityColumnIndex);
+        final Cursor daCursor = cursor;
+        final Context daContext = context;
 
         // Update the TextViews with the attributes for the current phone
         nameTextView.setText(phoneName);
@@ -102,15 +108,27 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
         // Setup Sale Button to open DetailActivity
         Button saleButton = (Button) view.findViewById(R.id.sale_button);
+        // set thebutton tag to the position inthe ListView
+        int pos = cursor.getPosition();
+        saleButton.setTag(pos);
         if (saleButton != null) {
             saleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.v("Button sale", "Clicked !!!!!!!!");
+                    // get the correct position of the button in the ListView
+                    Integer pos = (Integer) view.getTag() + 1;
+                    // get the quantity
+                    int quant = Integer.parseInt(phoneQuantity);
+                    ContentValues values = new ContentValues();
+                    values.put(InventoryEntry.COLUMN_PHONE_QUANTITY, (quant - 1));
+                    String mCurrentPhoneUri = InventoryEntry.CONTENT_URI + "/" + pos;
+                    int rowsAffected = daContext.getContentResolver().update(Uri.parse(mCurrentPhoneUri), values, null, null);
+
                 }
             });
-        }else{
+        } else {
             Log.v("Button sale", "Sale button is null");
+
 
         }
 

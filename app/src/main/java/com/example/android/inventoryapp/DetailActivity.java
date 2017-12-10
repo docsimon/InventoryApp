@@ -37,6 +37,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -159,6 +160,7 @@ public class DetailActivity extends AppCompatActivity implements
             return;
         }
 
+//        Log.v("URI: nasdaroviaaaaaa: ", mCurrentPhoneUri.toString());
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the detail are the values.
         ContentValues values = new ContentValues();
