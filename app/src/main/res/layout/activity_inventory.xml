@@ -11,21 +11,30 @@
         android:layout_height="match_parent" />
 
     <!-- Empty view for the list -->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_centerInParent="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-medium"
-            android:paddingTop="25dp"
+            android:padding="8dp"
+            android:text="@string/empty_view_title"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textAppearance="?android:textAppearanceMedium" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center"
             android:text="@string/empty_view_text"
             android:textAppearance="?android:textAppearanceMedium" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_button"
@@ -33,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimaryDark"
         android:src="@drawable/add_button" />

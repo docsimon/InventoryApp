@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">InventoryApp</string>
+    <!-- Title for the empty view [CHAR LIMIT=30] -->
+    <string name="empty_view_title">The Inventory is empty</string>
     <!-- Text for the empty view [CHAR LIMIT=50] -->
-    <string name="empty_view_text">The Inventory is empty</string>
+    <string name="empty_view_text">To add an item please use the button below.</string>
     <!-- Text for the sale button [CHAR LIMIT=10] -->
     <string name="sale_button">Sale</string>
 </resources>
