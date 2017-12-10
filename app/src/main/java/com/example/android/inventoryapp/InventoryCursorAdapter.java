@@ -20,6 +20,8 @@ package com.example.android.inventoryapp;
  * limitations under the License.
  */
 
+import android.util.Log;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 
 import android.content.Context;
@@ -97,5 +99,20 @@ public class InventoryCursorAdapter extends CursorAdapter {
         nameTextView.setText(phoneName);
         priceTextView.setText(phonePrice);
         quantityTextView.setText(phoneQuantity);
+
+        // Setup Sale Button to open DetailActivity
+        Button saleButton = (Button) view.findViewById(R.id.sale_button);
+        if (saleButton != null) {
+            saleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.v("Button sale", "Clicked !!!!!!!!");
+                }
+            });
+        }else{
+            Log.v("Button sale", "Sale button is null");
+
+        }
+
     }
 }

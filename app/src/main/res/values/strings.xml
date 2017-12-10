@@ -11,7 +11,7 @@
     <string name="sale_button">Sale</string>
 
     <!-- Label for overview category of attributes in the detail [CHAR LIMIT=30] -->
-    <string name="category_overview">Overview</string>
+    <string name="category_overview">Phone Data</string>
 
     <!-- Title for the activity to add a new phone [CHAR LIMIT=20] -->
     <string name="detail_activity_title_new_phone">Add a Phone</string>
@@ -32,7 +32,7 @@
     <string name="hint_phone_memory">Memory</string>
 
     <!-- Label for quantity information in the detail [CHAR LIMIT=30] -->
-    <string name="quantity_label">Quantity</string>
+    <string name="quantity_label">Quantity: </string>
 
     <!-- Label for quantity information in the detail [CHAR LIMIT=30] -->
     <string name="quantity_value">0</string>
@@ -79,6 +79,8 @@
     <!-- Toast message in detail when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
     <string name="detail_delete_phone_failed">Error with deleting phone</string>
 
+    <!-- Price label description-->
+    <string name="price_label">Price: </string>
 </resources>
 
 

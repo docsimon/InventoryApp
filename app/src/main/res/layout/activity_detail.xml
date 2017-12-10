@@ -56,7 +56,7 @@
             <!-- Price field -->
             <EditText
                 android:id="@+id/edit_phone_price"
-                android:hint="@string/hint_phone_manufacturer"
+                android:hint="@string/hint_phone_price"
                 android:inputType="textCapWords"
                 style="@style/DetailFieldStyle" />
 

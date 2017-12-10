@@ -16,6 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/DetailTheme"
+            android:parentActivityName=".InventoryActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".InventoryActivity" />
+        </activity>
+        <provider
+            android:name=".data.InventoryProvider"
+            android:authorities="com.example.android.phones"
+            android:exported="false" />
     </application>
 
 </manifest>

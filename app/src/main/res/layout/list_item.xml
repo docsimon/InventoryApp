@@ -10,41 +10,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D" />
+        android:textAppearance="?android:textAppearanceLarge" />
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_margin">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="24dp"
+            android:fontFamily="sans-serif"
+            android:padding="8dp"
+            android:text="@string/price_label"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/price_label"
+            android:fontFamily="sans-serif"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/quantity_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/price_label"
+            android:layout_marginRight="20dp"
             android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#AEB6BD" />
+            android:padding="8dp"
+            android:text="@string/quantity_label"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/price"
+            android:layout_toRightOf="@+id/quantity_label"
             android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#AEB6BD" />
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+
         <Button
             android:id="@+id/sale_button"
             style="@style/SaleButton"
-            android:layout_marginBottom="16dp"
+            android:focusable="false"
+            android:layout_alignParentRight="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
             android:text="@string/sale_button" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="#AEB6BD" />
 </LinearLayout>
