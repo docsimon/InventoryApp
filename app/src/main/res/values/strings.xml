@@ -2,5 +2,6 @@
     <string name="app_name">InventoryApp</string>
     <!-- Text for the empty view [CHAR LIMIT=50] -->
     <string name="empty_view_text">The Inventory is empty</string>
-
+    <!-- Text for the sale button [CHAR LIMIT=10] -->
+    <string name="sale_button">Sale</string>
 </resources>
