@@ -82,11 +82,20 @@
     <!-- Price label description-->
     <string name="price_label">Price: </string>
 
-    <!-- Increase quantity button description-->
+    <!-- Increase quantity button description -->
     <string name="increase_quantity"> + </string>
 
-    <!-- Decrease quantity button description-->
+    <!-- Decrease quantity button description -->
     <string name="decrease_quantity"> - </string>
+
+    <!-- Add image button -->
+    <string name="add_image"> Add Image </string>
+
+    <string-array name="predefined_quantity">
+        <item>1</item>
+        <item>10</item>
+        <item>100</item>
+        <item>1000</item>
+        <item>10000</item>
+    </string-array>
 </resources>
-
-

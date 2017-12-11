@@ -103,17 +103,25 @@
         <Button
             android:id="@+id/add_quantity"
             style="@style/QuantityButton"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
             android:text="@string/increase_quantity"
             android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/spinner_quantity"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:spinnerMode="dropdown"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/add_image"
-        style="@style/QuantityButton"
+        style="@style/ImageButton"
+        android:layout_marginTop="24dp"
         android:gravity="center_vertical"
-        android:text="@string/decrease_quantity"
+        android:text="@string/add_image"
         android:textAlignment="center" />
 
 

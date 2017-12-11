@@ -57,27 +57,41 @@ import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 public class DetailActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /**
+     * Identifier for the pet data loader
+     */
     private static final int EXISTING_PHONE_LOADER = 0;
 
     private Uri mCurrentPhoneUri;
 
-    /** EditText field to enter the phone's name */
+    /**
+     * EditText field to enter the phone's name
+     */
     private EditText mNameEditText;
 
-    /** EditText field to enter the phone's manifacturer */
+    /**
+     * EditText field to enter the phone's manifacturer
+     */
     private EditText mManufacturerEditText;
 
-    /** EditText field to enter the phone's price */
+    /**
+     * EditText field to enter the phone's price
+     */
     private EditText mPriceEditText;
 
-    /** EditText field to enter the phone's memory size */
+    /**
+     * EditText field to enter the phone's memory size
+     */
     private EditText mMemoryEditText;
 
-    /** EditText field to enter the phone's quantity */
+    /**
+     * EditText field to enter the phone's quantity
+     */
     private EditText mQuantityEditText;
 
-    /** Boolean flag that keeps track of whether the phone has been edited (true) or not (false) */
+    /**
+     * Boolean flag that keeps track of whether the phone has been edited (true) or not (false)
+     */
     private boolean mPhoneHasChanged = false;
 
     /**
@@ -136,28 +150,43 @@ public class DetailActivity extends AppCompatActivity implements
         mMemoryEditText.setOnTouchListener(mTouchListener);
         mQuantityEditText.setOnTouchListener(mTouchListener);
 
-        Button addQuantity = (Button) findViewById(R.id.add_quantity);
+        // Populate the quantity choice spinner
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner_quantity);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.predefined_quantity, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 
+
+        //final String selected_quantity_offset = spinner.getSelectedItem().toString();
+
+        Button addQuantity = (Button) findViewById(R.id.add_quantity);
         addQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String selected_quantity_offset = spinner.getSelectedItem().toString();
                 //get the current quantity
                 String quantityString = mQuantityEditText.getText().toString().trim();
-                int newQuantity = Integer.parseInt(quantityString) + 1;
+                int newQuantity = Integer.parseInt(quantityString) + Integer.parseInt(selected_quantity_offset);
                 mQuantityEditText.setText(newQuantity + "");
             }
         });
 
         Button removeQuantity = (Button) findViewById(R.id.remove_quantity);
-
         removeQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //get the current quantity
+                String selected_quantity_offset = spinner.getSelectedItem().toString();
                 String quantityString = mQuantityEditText.getText().toString().trim();
-                if (Integer.parseInt(quantityString) > 0) {
-                    int newQuantity = Integer.parseInt(quantityString) - 1;
+                int newQuantity = (Integer.parseInt(quantityString) - Integer.parseInt(selected_quantity_offset));
+                if ( newQuantity >= 0) {
                     mQuantityEditText.setText(newQuantity + "");
+                }else{
+                    mQuantityEditText.setText(0 + "");
                 }
             }
         });
@@ -175,7 +204,6 @@ public class DetailActivity extends AppCompatActivity implements
         String priceString = mPriceEditText.getText().toString().trim();
         String memoryString = mMemoryEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
-
 
 
         // Check if th is is supposed to be a new pet
