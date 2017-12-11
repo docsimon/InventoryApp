@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
@@ -9,10 +8,8 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
-<!-- Layout for the editor -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+--><!-- Layout for the editor -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,44 +25,44 @@
 
         <!-- Label -->
         <TextView
-            android:text="@string/category_overview"
-            style="@style/InventoryStyle" />
+            style="@style/InventoryStyle"
+            android:text="@string/category_overview" />
 
         <!-- Input fields -->
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_phone_name"
+                style="@style/DetailFieldStyle"
                 android:hint="@string/hint_phone_name"
-                android:inputType="textCapWords"
-                style="@style/DetailFieldStyle" />
+                android:inputType="textCapWords" />
 
             <!-- Manufacturer field -->
             <EditText
                 android:id="@+id/edit_phone_manufacturer"
+                style="@style/DetailFieldStyle"
                 android:hint="@string/hint_phone_manufacturer"
-                android:inputType="textCapWords"
-                style="@style/DetailFieldStyle" />
+                android:inputType="textCapWords" />
 
             <!-- Price field -->
             <EditText
                 android:id="@+id/edit_phone_price"
+                style="@style/DetailFieldStyle"
                 android:hint="@string/hint_phone_price"
-                android:inputType="textCapWords"
-                style="@style/DetailFieldStyle" />
+                android:inputType="textCapWords" />
 
             <!-- Memory field -->
             <EditText
                 android:id="@+id/edit_phone_memory"
+                style="@style/DetailFieldStyle"
                 android:hint="@string/hint_phone_memory"
-                android:inputType="textCapWords"
-                style="@style/DetailFieldStyle" />
+                android:inputType="textCapWords" />
         </LinearLayout>
     </LinearLayout>
 
@@ -78,11 +75,46 @@
 
         <!-- Label -->
         <TextView
-            android:text="@string/quantity_label"
-            style="@style/InventoryStyle" />
+            style="@style/InventoryStyle"
+            android:text="@string/quantity_label" />
+
         <EditText
             android:id="@+id/quantity_value"
-            android:inputType="textCapWords"
-            style="@style/DetailFieldStyle" />
+            style="@style/DetailFieldStyle"
+            android:layout_marginRight="8dp"
+            android:hint="@string/quantity_label"
+            android:inputType="textCapWords" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/remove_quantity"
+            style="@style/QuantityButton"
+            android:gravity="center_vertical"
+            android:text="@string/decrease_quantity"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/add_quantity"
+            style="@style/QuantityButton"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/increase_quantity"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_image"
+        style="@style/QuantityButton"
+        android:gravity="center_vertical"
+        android:text="@string/decrease_quantity"
+        android:textAlignment="center" />
+
+
 </LinearLayout>

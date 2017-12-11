@@ -44,6 +44,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -134,6 +135,32 @@ public class DetailActivity extends AppCompatActivity implements
         mPriceEditText.setOnTouchListener(mTouchListener);
         mMemoryEditText.setOnTouchListener(mTouchListener);
         mQuantityEditText.setOnTouchListener(mTouchListener);
+
+        Button addQuantity = (Button) findViewById(R.id.add_quantity);
+
+        addQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //get the current quantity
+                String quantityString = mQuantityEditText.getText().toString().trim();
+                int newQuantity = Integer.parseInt(quantityString) + 1;
+                mQuantityEditText.setText(newQuantity + "");
+            }
+        });
+
+        Button removeQuantity = (Button) findViewById(R.id.remove_quantity);
+
+        removeQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //get the current quantity
+                String quantityString = mQuantityEditText.getText().toString().trim();
+                if (Integer.parseInt(quantityString) > 0) {
+                    int newQuantity = Integer.parseInt(quantityString) - 1;
+                    mQuantityEditText.setText(newQuantity + "");
+                }
+            }
+        });
 
     }
 

@@ -11,7 +11,7 @@
     <string name="sale_button">Sale</string>
 
     <!-- Label for overview category of attributes in the detail [CHAR LIMIT=30] -->
-    <string name="category_overview">Phone Data</string>
+    <string name="category_overview">Phone Data: </string>
 
     <!-- Title for the activity to add a new phone [CHAR LIMIT=20] -->
     <string name="detail_activity_title_new_phone">Add a Phone</string>
@@ -81,6 +81,12 @@
 
     <!-- Price label description-->
     <string name="price_label">Price: </string>
+
+    <!-- Increase quantity button description-->
+    <string name="increase_quantity"> + </string>
+
+    <!-- Decrease quantity button description-->
+    <string name="decrease_quantity"> - </string>
 </resources>
 
 
