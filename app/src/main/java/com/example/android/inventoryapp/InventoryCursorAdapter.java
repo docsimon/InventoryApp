@@ -89,16 +89,17 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
 
         // Find the columns of phone attributes that we're interested in
+        int idColumnIndex = cursor.getColumnIndex(InventoryEntry._ID);
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_NAME);
         int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_PRICE);
         int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_QUANTITY);
 
         // Read the phone attributes from the Cursor for the current phone
+        final String id = cursor.getString(idColumnIndex);
         String phoneName = cursor.getString(nameColumnIndex);
         String phonePrice = cursor.getString(priceColumnIndex);
         // Declare these variable as final in order to use them inside the inner class
         final String phoneQuantity = cursor.getString(quantityColumnIndex);
-        final Cursor daCursor = cursor;
         final Context daContext = context;
 
         // Update the TextViews with the attributes for the current phone
@@ -115,15 +116,14 @@ public class InventoryCursorAdapter extends CursorAdapter {
             saleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // get the correct position of the button in the ListView
-                    Integer pos = (Integer) view.getTag() + 1;
                     // get the quantity
                     int quant = Integer.parseInt(phoneQuantity);
-                    ContentValues values = new ContentValues();
-                    values.put(InventoryEntry.COLUMN_PHONE_QUANTITY, (quant - 1));
-                    String mCurrentPhoneUri = InventoryEntry.CONTENT_URI + "/" + pos;
-                    int rowsAffected = daContext.getContentResolver().update(Uri.parse(mCurrentPhoneUri), values, null, null);
-
+                    if (quant > 0) {
+                        ContentValues values = new ContentValues();
+                        values.put(InventoryEntry.COLUMN_PHONE_QUANTITY, (quant - 1));
+                        String mCurrentPhoneUri = InventoryEntry.CONTENT_URI + "/" + id;
+                        int rowsAffected = daContext.getContentResolver().update(Uri.parse(mCurrentPhoneUri), values, null, null);
+                    }
                 }
             });
         } else {
