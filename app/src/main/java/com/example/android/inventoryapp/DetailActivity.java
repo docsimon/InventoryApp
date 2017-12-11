@@ -169,9 +169,13 @@ public class DetailActivity extends AppCompatActivity implements
             public void onClick(View view) {
                 String selected_quantity_offset = spinner.getSelectedItem().toString();
                 //get the current quantity
+                if (TextUtils.isEmpty(mQuantityEditText.getText())) {
+                    mQuantityEditText.setText("0");
+                }
                 String quantityString = mQuantityEditText.getText().toString().trim();
                 int newQuantity = Integer.parseInt(quantityString) + Integer.parseInt(selected_quantity_offset);
                 mQuantityEditText.setText(newQuantity + "");
+
             }
         });
 
@@ -182,11 +186,14 @@ public class DetailActivity extends AppCompatActivity implements
                 //get the current quantity
                 String selected_quantity_offset = spinner.getSelectedItem().toString();
                 String quantityString = mQuantityEditText.getText().toString().trim();
-                int newQuantity = (Integer.parseInt(quantityString) - Integer.parseInt(selected_quantity_offset));
-                if ( newQuantity >= 0) {
-                    mQuantityEditText.setText(newQuantity + "");
-                }else{
-                    mQuantityEditText.setText(0 + "");
+                if (!TextUtils.isEmpty(mQuantityEditText.getText())) {
+
+                    int newQuantity = (Integer.parseInt(quantityString) - Integer.parseInt(selected_quantity_offset));
+                    if (newQuantity >= 0) {
+                        mQuantityEditText.setText(newQuantity + "");
+                    } else {
+                        mQuantityEditText.setText(0 + "");
+                    }
                 }
             }
         });
@@ -478,7 +485,7 @@ public class DetailActivity extends AppCompatActivity implements
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the pet.
-                deletePet();
+                deletePhone();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -499,12 +506,12 @@ public class DetailActivity extends AppCompatActivity implements
     /**
      * Perform the deletion of the pet in the database.
      */
-    private void deletePet() {
-        // Only perform the delete if this is an existing pet.
+    private void deletePhone() {
+        // Only perform the delete if this is an existing phone.
         if (mCurrentPhoneUri != null) {
-            // Call the ContentResolver to delete the pet at the given content URI.
+            // Call the ContentResolver to delete the phone at the given content URI.
             // Pass in null for the selection and selection args because the mCurrentPetUri
-            // content URI already identifies the pet that we want.
+            // content URI already identifies the phone that we want.
             int rowsDeleted = getContentResolver().delete(mCurrentPhoneUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.
