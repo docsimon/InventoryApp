@@ -90,5 +90,12 @@ public final class InventoryContract {
          * Type: INTEGER
          */
         public final static String COLUMN_PHONE_QUANTITY = "quantity";
+
+        /**
+         * Image of the phone.
+         * <p>
+         * Type: Blob
+         */
+        public final static String COLUMN_PHONE_IMAGE = "image";
     }
 }

@@ -32,8 +32,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -46,10 +49,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Allows user to create a new pet or edit an existing one.
@@ -88,6 +95,11 @@ public class DetailActivity extends AppCompatActivity implements
      * EditText field to enter the phone's quantity
      */
     private EditText mQuantityEditText;
+
+    /**
+     * ImageView to enter the phone's image
+     */
+    private ImageView mImageView;
 
     /**
      * Boolean flag that keeps track of whether the phone has been edited (true) or not (false)
@@ -198,6 +210,59 @@ public class DetailActivity extends AppCompatActivity implements
             }
         });
 
+        //** Add an image from the phone gallery **/
+
+        Button addImage = (Button) findViewById(R.id.add_image);
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.v("*****************", "Image button clicked!!!!!!");
+                pickImage();
+            }
+        });
+
+
+
+
+}
+
+    // ** Picture management ** //
+    Bitmap bp;
+    public static final int PICK_IMAGE = 1;
+    private void pickImage() {
+        Log.v("*****************", "pickImage called");
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_IMAGE) {
+            // get the image URI from data.getData()
+            Log.v("******* Image *****: ", data.getData().toString());
+
+            // get a bitmap version of the image
+            Uri selectedImageUri = data.getData();
+            //imageView.setImageURI(imgUri);
+
+            if (selectedImageUri != null) {
+
+                try {
+                    bp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    // set this image to the ImageView
+                    mImageView = (ImageView) findViewById(R.id.phone_image);
+                    mImageView.setImageBitmap(bp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
     }
 
     /**
@@ -211,6 +276,12 @@ public class DetailActivity extends AppCompatActivity implements
         String priceString = mPriceEditText.getText().toString().trim();
         String memoryString = mMemoryEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
+        // Convert the bitmap image into byte[]
+        // convert from bitmap to byte array
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bp.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] image = stream.toByteArray();
+
 
 
         // Check if th is is supposed to be a new pet
@@ -222,13 +293,12 @@ public class DetailActivity extends AppCompatActivity implements
             return;
         }
 
-//        Log.v("URI: nasdaroviaaaaaa: ", mCurrentPhoneUri.toString());
-        // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the detail are the values.
+
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PHONE_NAME, nameString);
         values.put(InventoryEntry.COLUMN_PHONE_MANUFACTURER, manufacturerString);
         values.put(InventoryEntry.COLUMN_PHONE_PRICE, priceString);
+        values.put(InventoryEntry.COLUMN_PHONE_IMAGE, image);
 
         // Set the default value of quantity and memory if the user
         // doesn't provide a value
@@ -385,6 +455,7 @@ public class DetailActivity extends AppCompatActivity implements
                 InventoryEntry.COLUMN_PHONE_NAME,
                 InventoryEntry.COLUMN_PHONE_MANUFACTURER,
                 InventoryEntry.COLUMN_PHONE_PRICE,
+                InventoryEntry.COLUMN_PHONE_IMAGE,
                 InventoryEntry.COLUMN_PHONE_MEMORY,
                 InventoryEntry.COLUMN_PHONE_QUANTITY
         };
@@ -412,6 +483,7 @@ public class DetailActivity extends AppCompatActivity implements
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_NAME);
             int manufacturerColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_MANUFACTURER);
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_PRICE);
+            int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_IMAGE);
             int memoryColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_MEMORY);
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PHONE_QUANTITY);
 
@@ -420,6 +492,7 @@ public class DetailActivity extends AppCompatActivity implements
             String name = cursor.getString(nameColumnIndex);
             String manufacturer = cursor.getString(manufacturerColumnIndex);
             float price = cursor.getFloat(priceColumnIndex);
+            byte[] image = cursor.getBlob(imageColumnIndex);
             int memory = cursor.getInt(memoryColumnIndex);
             int quantity = cursor.getInt(quantityColumnIndex);
 
@@ -430,6 +503,16 @@ public class DetailActivity extends AppCompatActivity implements
             mPriceEditText.setText(Float.toString(price));
             mMemoryEditText.setText(Integer.toString(memory));
             mQuantityEditText.setText(Integer.toString(quantity));
+            // ** transform the image into bitmap
+            // convert from byte array to bitmap
+            Bitmap image_bp = BitmapFactory.decodeByteArray(image, 0, image.length);
+            if (image_bp != null) {
+                ImageView imageView = (ImageView) findViewById(R.id.phone_image);
+                imageView.setImageBitmap(image_bp);
+            }else{
+                Log.v("**********", image + "");
+            }
+
 
         }
     }

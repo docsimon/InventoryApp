@@ -128,5 +128,12 @@
             android:text="@string/add_image"
             android:textAlignment="center" />
 
+        <ImageView
+            android:id="@+id/phone_image"
+            android:layout_width="150sp"
+            android:layout_height="200sp"
+            android:layout_gravity="center"
+            android:src="@drawable/phone_placeholder"/>
+
     </LinearLayout>
 </ScrollView>

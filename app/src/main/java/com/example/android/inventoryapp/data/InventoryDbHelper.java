@@ -47,6 +47,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
                 + InventoryEntry.COLUMN_PHONE_NAME + " TEXT NOT NULL, "
                 + InventoryEntry.COLUMN_PHONE_MANUFACTURER + " TEXT NOT NULL, "
                 + InventoryEntry.COLUMN_PHONE_PRICE + " FLOAT NOT NULL, "
+                + InventoryEntry.COLUMN_PHONE_IMAGE + " BLOB NOT NULL, "
                 + InventoryEntry.COLUMN_PHONE_MEMORY + " INTEGER NOT NULL DEFAULT 8, "
                 + InventoryEntry.COLUMN_PHONE_QUANTITY + " INTEGER NOT NULL DEFAULT 0);";
 

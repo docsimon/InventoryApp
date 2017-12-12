@@ -16,6 +16,7 @@ import android.util.Log;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.security.Provider;
+import java.sql.Blob;
 
 /**
  * {@link ContentProvider} for Inventory app.
@@ -96,7 +97,7 @@ public class InventoryProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case PHONES:
-                return insertPet(uri, contentValues);
+                return insertPhone(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
@@ -106,7 +107,7 @@ public class InventoryProvider extends ContentProvider {
      * Insert a phone into the database with the given content values. Return the new content URI
      * for that specific row in the database.
      */
-    private Uri insertPet(Uri uri, ContentValues values) {
+    private Uri insertPhone(Uri uri, ContentValues values) {
         // Check that the name is not null
         String name = values.getAsString(InventoryEntry.COLUMN_PHONE_NAME);
         if (name == null) {
@@ -123,6 +124,12 @@ public class InventoryProvider extends ContentProvider {
         Float price = values.getAsFloat(InventoryEntry.COLUMN_PHONE_PRICE);
         if (price == null || price < 0) {
             throw new IllegalArgumentException("Phone requires valid price");
+        }
+
+        // If the image is not provided throw an exception
+        byte[] image = values.getAsByteArray(InventoryEntry.COLUMN_PHONE_IMAGE);
+        if (image == null ) {
+            throw new IllegalArgumentException("Phone requires valid image");
         }
 
         // If the quantity is not provided it defaults to zero. But if it's provided
@@ -195,6 +202,13 @@ public class InventoryProvider extends ContentProvider {
             Float price = values.getAsFloat(InventoryEntry.COLUMN_PHONE_PRICE);
             if (price == null || price < 0) {
                 throw new IllegalArgumentException("Phone requires valid price");
+            }
+        }
+
+        if (values.containsKey(InventoryEntry.COLUMN_PHONE_IMAGE)) {
+            byte[] image = values.getAsByteArray(InventoryEntry.COLUMN_PHONE_IMAGE);
+            if (image == null) {
+                throw new IllegalArgumentException("Phone requires valid image");
             }
         }
 
