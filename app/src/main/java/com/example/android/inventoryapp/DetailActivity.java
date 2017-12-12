@@ -277,34 +277,20 @@ public class DetailActivity extends AppCompatActivity implements
 
         // Check if th is is supposed to be a new pet
         // and check if all the fields in the detail are blank
-        if (mCurrentPhoneUri == null &&
-                (bp == null) && TextUtils.isEmpty(nameString) && TextUtils.isEmpty(manufacturerString) &&
-                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(memoryString) && TextUtils.isEmpty(quantityString)) {
-            // Since no fields were modified, we can return early without creating a new phone.
-            return 1;
-        }
+//        if (mCurrentPhoneUri == null &&
+//                (bp == null) && TextUtils.isEmpty(nameString) && TextUtils.isEmpty(manufacturerString) &&
+//                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(memoryString) && TextUtils.isEmpty(quantityString)) {
+//            // Since no fields were modified, we can return early without creating a new phone.
+//            return 1;
+//        }
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PHONE_NAME, nameString);
         values.put(InventoryEntry.COLUMN_PHONE_MANUFACTURER, manufacturerString);
         values.put(InventoryEntry.COLUMN_PHONE_PRICE, priceString);
         values.put(InventoryEntry.COLUMN_PHONE_IMAGE, image);
-
-        // Set the default value of quantity and memory if the user
-        // doesn't provide a value
-        int quantity = 0;
-        if (!TextUtils.isEmpty(quantityString)) {
-            quantity = Integer.parseInt(quantityString);
-        }
-        values.put(InventoryEntry.COLUMN_PHONE_QUANTITY, quantity);
-
-        // the default value for memory is 8GB
-        int memory = 8;
-        if (!TextUtils.isEmpty(memoryString)) {
-            memory = Integer.parseInt(memoryString);
-        }
-
-        values.put(InventoryEntry.COLUMN_PHONE_MEMORY, memory);
+        values.put(InventoryEntry.COLUMN_PHONE_QUANTITY, quantityString);
+        values.put(InventoryEntry.COLUMN_PHONE_MEMORY, memoryString);
 
 
         // Determine if this is a new or existing phone by checking if mCurrentPhoneUri is null or not
@@ -333,15 +319,17 @@ public class DetailActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
                 // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, getString(R.string.detail_update_phone_failed),
-                        Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, getString(R.string.detail_update_phone_failed),
+                       // Toast.LENGTH_SHORT).show();
+                return 1;
             } else {
                 // Otherwise, the update was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.detail_update_phone_successful),
                         Toast.LENGTH_SHORT).show();
+                return 0;
             }
         }
-        return 0;
+        //return 1;
     }
 
     @Override
@@ -498,10 +486,10 @@ public class DetailActivity extends AppCompatActivity implements
             mQuantityEditText.setText(Integer.toString(quantity));
             // ** transform the image into bitmap
             // convert from byte array to bitmap
-            Bitmap image_bp = BitmapFactory.decodeByteArray(image, 0, image.length);
-            if (image_bp != null) {
+            bp = BitmapFactory.decodeByteArray(image, 0, image.length);
+            if (bp != null) {
                 ImageView imageView = (ImageView) findViewById(R.id.phone_image);
-                imageView.setImageBitmap(image_bp);
+                imageView.setImageBitmap(bp);
             }else{
                 Log.v("**********", image + "");
             }

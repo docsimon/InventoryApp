@@ -92,22 +92,22 @@
     <string name="add_image"> Add Image </string>
 
     <!-- image empty error -->
-    <string name="error_image"> Please, add an image for the phone </string>
+    <string name="error_image"> Please, add an Image for the phone </string>
 
     <!-- name empty error -->
-    <string name="error_name"> Please, insert a name for the phone </string>
+    <string name="error_name"> Please, insert a Name for the phone </string>
 
     <!-- manufacturer empty error -->
-    <string name="error_manufacturer"> Please, insert a manufacturer for the phone </string>
+    <string name="error_manufacturer"> Please, insert a Manufacturer for the phone </string>
 
     <!-- price empty error -->
-    <string name="error_price"> Please, insert a valid price for the phone </string>
+    <string name="error_price"> Please, insert a valid Price for the phone </string>
 
     <!-- quantity empty error -->
-    <string name="error_quantity"> Please, insert a valid quantity for the phone </string>
+    <string name="error_quantity"> Please, insert a valid Quantity for the phone </string>
 
     <!-- memory empty error -->
-    <string name="error_memory"> Please, insert a valid memory for the phone </string>
+    <string name="error_memory"> Please, insert a valid Memory for the phone </string>
 
     <string-array name="predefined_quantity">
         <item>1</item>
