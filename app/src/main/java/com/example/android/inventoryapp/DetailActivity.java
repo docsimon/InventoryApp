@@ -216,8 +216,6 @@ public class DetailActivity extends AppCompatActivity implements
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.v("*****************", "Image button clicked!!!!!!");
                 pickImage();
             }
         });
@@ -231,8 +229,6 @@ public class DetailActivity extends AppCompatActivity implements
     Bitmap bp;
     public static final int PICK_IMAGE = 1;
     private void pickImage() {
-        Log.v("*****************", "pickImage called");
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -242,15 +238,9 @@ public class DetailActivity extends AppCompatActivity implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE) {
-            // get the image URI from data.getData()
-            Log.v("******* Image *****: ", data.getData().toString());
-
             // get a bitmap version of the image
             Uri selectedImageUri = data.getData();
-            //imageView.setImageURI(imgUri);
-
             if (selectedImageUri != null) {
-
                 try {
                     bp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                     // set this image to the ImageView
@@ -261,14 +251,13 @@ public class DetailActivity extends AppCompatActivity implements
                 }
             }
 
-
         }
     }
 
     /**
      * Get user input from detail and save phone into database.
      */
-    private void savePhone() {
+    private int savePhone() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
@@ -278,21 +267,22 @@ public class DetailActivity extends AppCompatActivity implements
         String quantityString = mQuantityEditText.getText().toString().trim();
         // Convert the bitmap image into byte[]
         // convert from bitmap to byte array
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bp.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        byte[] image = stream.toByteArray();
-
+        byte[] image = null;
+        if (bp != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bp.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            image = stream.toByteArray();
+        }
 
 
         // Check if th is is supposed to be a new pet
         // and check if all the fields in the detail are blank
         if (mCurrentPhoneUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(manufacturerString) &&
+                (bp == null) && TextUtils.isEmpty(nameString) && TextUtils.isEmpty(manufacturerString) &&
                 TextUtils.isEmpty(priceString) && TextUtils.isEmpty(memoryString) && TextUtils.isEmpty(quantityString)) {
             // Since no fields were modified, we can return early without creating a new phone.
-            return;
+            return 1;
         }
-
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_PHONE_NAME, nameString);
@@ -326,12 +316,12 @@ public class DetailActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(R.string.detail_insert_phone_failed),
-                        Toast.LENGTH_SHORT).show();
+                return 1;
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.detail_insert_phone_successful),
                         Toast.LENGTH_SHORT).show();
+                return 0;
             }
         } else {
             // Otherwise this is an EXISTING phone, so update the phone with content URI: mCurrentPhoneUri
@@ -351,6 +341,7 @@ public class DetailActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
+        return 0;
     }
 
     @Override
@@ -383,9 +374,11 @@ public class DetailActivity extends AppCompatActivity implements
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save phone to database
-                savePhone();
+                int result = savePhone();
                 // Exit activity
-                finish();
+                if (result == 0) {
+                    finish();
+                }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:

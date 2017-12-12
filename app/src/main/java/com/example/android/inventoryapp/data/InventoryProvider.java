@@ -7,12 +7,17 @@ package com.example.android.inventoryapp.data;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.android.inventoryapp.R;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.security.Provider;
@@ -110,40 +115,55 @@ public class InventoryProvider extends ContentProvider {
     private Uri insertPhone(Uri uri, ContentValues values) {
         // Check that the name is not null
         String name = values.getAsString(InventoryEntry.COLUMN_PHONE_NAME);
-        if (name == null) {
-            throw new IllegalArgumentException("Phone requires a name");
+        /**
+         * Get the context for the Toast
+         */
+        Context context = getContext();
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(getContext(), context.getString(R.string.error_name), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         // Check that the manufacturer is not null
         String manufacturer = values.getAsString(InventoryEntry.COLUMN_PHONE_MANUFACTURER);
-        if (manufacturer == null) {
-            throw new IllegalArgumentException("Phone requires a manufacturer");
+        if (TextUtils.isEmpty(manufacturer)) {
+          //  Context context = getContext();
+            Toast.makeText(getContext(), context.getString(R.string.error_manufacturer), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         // If the price is not provided or if it's negative throw an exception
         Float price = values.getAsFloat(InventoryEntry.COLUMN_PHONE_PRICE);
         if (price == null || price < 0) {
-            throw new IllegalArgumentException("Phone requires valid price");
-        }
-
-        // If the image is not provided throw an exception
-        byte[] image = values.getAsByteArray(InventoryEntry.COLUMN_PHONE_IMAGE);
-        if (image == null ) {
-            throw new IllegalArgumentException("Phone requires valid image");
-        }
-
-        // If the quantity is not provided it defaults to zero. But if it's provided
-        // cannot be negative
-        Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_PHONE_QUANTITY);
-        if (quantity < 0) {
-            throw new IllegalArgumentException("Phone requires valid quantity");
+          //  Context context = getContext();
+            Toast.makeText(getContext(), context.getString(R.string.error_price), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         // If the memory is not provided it defaults to 8. But if it's provided
         // cannot be negative
         Integer memory = values.getAsInteger(InventoryEntry.COLUMN_PHONE_MEMORY);
-        if (memory < 0) {
-            throw new IllegalArgumentException("Phone requires valid quantity");
+        if (memory == null || memory < 0) {
+           // Context context = getContext();
+            Toast.makeText(getContext(), context.getString(R.string.error_memory), Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        // If the quantity is not provided it defaults to zero. But if it's provided
+        // cannot be negative
+        Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_PHONE_QUANTITY);
+        if (quantity == null || quantity < 0 ) {
+           // Context context = getContext();
+            Toast.makeText(getContext(), context.getString(R.string.error_quantity), Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        // If the image is not provided throw an exception
+        byte[] image = values.getAsByteArray(InventoryEntry.COLUMN_PHONE_IMAGE);
+        if (image == null ) {
+          //  Context context = getContext();
+            Toast.makeText(getContext(), context.getString(R.string.error_image), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         // Get writeable database
@@ -179,7 +199,6 @@ public class InventoryProvider extends ContentProvider {
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
     }
-
 
     private int updatePhone(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
